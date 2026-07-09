@@ -1,0 +1,330 @@
+{
+  "name": "AutoGForm",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": "",
+          "cachedResultUrl": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 654805187,
+          "mode": "list",
+          "cachedResultName": "",
+          "cachedResultUrl": ""
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5e94a789-0100-405f-ab8b-810f670b8080",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "wORIQeWv8dDDF8rO",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2c00e896-0aed-42d0-b6d7-05255423dd38",
+              "leftValue": "={{ $json['critical ?'] }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        176,
+        0
+      ],
+      "id": "16ad3d4e-ea34-4515-b626-9dfe0ed75e28",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "",
+        "text": "=‼️CRTITCAL‼️\nNew Form Application !\n\nName : {{ $('Google Sheets Trigger').item.json.name }}\nEmail : {{ $('Google Sheets Trigger').item.json.email }}\nContacts : {{ $('Google Sheets Trigger').item.json.contacts }}\nShort Message : {{ $('Google Sheets Trigger').item.json['short Message'] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        -160
+      ],
+      "id": "d9a2cc57-903f-4cd9-b31f-37530322dc43",
+      "name": "Send a text message",
+      "webhookId": "dea221b1-c459-4620-8278-9e86105ee2a0",
+      "credentials": {
+        "telegramApi": {
+          "id": "CezV5VReGi1fFN7l",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "",
+        "text": "=✅New Form Application !\n\nName : {{ $('Google Sheets Trigger').item.json.name }}\nEmail : {{ $('Google Sheets Trigger').item.json.email }}\nContacts : {{ $('Google Sheets Trigger').item.json.contacts }}\nShort Message : {{ $('Google Sheets Trigger').item.json['short Message'] }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        112
+      ],
+      "id": "f1faac28-c72f-45ca-a8e1-f2440ed26f0a",
+      "name": "Send a text message1",
+      "webhookId": "dea221b1-c459-4620-8278-9e86105ee2a0",
+      "credentials": {
+        "telegramApi": {
+          "id": "CezV5VReGi1fFN7l",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": "",
+          "cachedResultUrl": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 654805187,
+          "mode": "list",
+          "cachedResultName": "",
+          "cachedResultUrl": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Google Sheets Trigger').item.json.row_number }}",
+            "Status": "Checked"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Позначка часу",
+              "displayName": "Позначка часу",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "contacts",
+              "displayName": "contacts",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "short Message",
+              "displayName": "short Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "critical ?",
+              "displayName": "critical ?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        0
+      ],
+      "id": "8ff27cb0-5605-4af6-9651-26108b989322",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IK81Itfy5Kk6odi1",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "34iNVkLRyxwDRWeT",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "1a271c2d-db90-4a25-b1ed-f42bba27b402",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ddf4809e52964176c9a2d800c8f16d31a08382f803624d49882b966aa6b54cf1"
+  },
+  "nodeGroups": [],
+  "id": "qKkKYFu7ptm3rmrK",
+  "tags": [
+    {
+      "name": "Bussines",
+      "id": "D4MFgQfTdtDPHXFK",
+      "updatedAt": "2026-07-09T05:20:08.990Z",
+      "createdAt": "2026-07-09T05:20:08.990Z"
+    }
+  ]
+}
